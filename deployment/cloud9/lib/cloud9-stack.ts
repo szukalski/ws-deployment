@@ -1,9 +1,10 @@
 import * as cdk from 'aws-cdk-lib';
 import { CfnEnvironmentEC2 } from 'aws-cdk-lib/aws-cloud9';
 import { Vpc } from 'aws-cdk-lib/aws-ec2';
-import { CompositePrincipal, InstanceProfile, ManagedPolicy, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import { CompositePrincipal, InstanceProfile, ManagedPolicy, PolicyDocument, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { StringParameter } from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
+import { readFileSync } from 'fs';
 
 export interface Cloud9StackProps extends cdk.StackProps {
   workshop: string;
@@ -36,13 +37,17 @@ export class Cloud9Stack extends cdk.Stack {
       parameterName: '/'+props.workshop+'/Cloud9/AttrArn',
       stringValue: this.c9.attrArn,
     });
+    const policy = new ManagedPolicy(this, 'WsPolicy', {
+      document: PolicyDocument.fromJson(JSON.parse(readFileSync(`${__dirname}/../../iam_policy.json`, 'utf-8'))),
+    });
     const cloud9Role = new Role(this, "Cloud9Role", {
       assumedBy: new CompositePrincipal(
         new ServicePrincipal('ec2.amazonaws.com'),
         new ServicePrincipal('ssm.amazonaws.com')
       ),
       managedPolicies: [
-        ManagedPolicy.fromAwsManagedPolicyName("AdministratorAccess"),
+        policy,
+        ManagedPolicy.fromAwsManagedPolicyName("ReadOnlyAccess"),
       ],
     });
 
@@ -60,5 +65,7 @@ export class Cloud9Stack extends cdk.Stack {
       parameterName: cloud9InstanceProfileName,
       stringValue: cloud9InstanceProfile.instanceProfileName,
     });
+    
+    
   }
 }

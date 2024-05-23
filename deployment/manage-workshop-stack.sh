@@ -144,7 +144,7 @@ manage_workshop_stack() {
         replace_instance_profile
         run_ssm_command "cd ~/environment ; git clone --branch $REPO_BRANCH_NAME $REPO_URL || echo 'Repo already exists.'"
         run_ssm_command "rm -vf ~/.aws/credentials"
-        run_ssm_command "cd ~/environment/$REPO_NAME/deployment/cloud9 && ./resize-cloud9-ebs-vol.sh"
+        run_ssm_command "cd ~/environment/$REPO_NAME/deployment && ./resize-cloud9-ebs-vol.sh"
         run_ssm_command "cd ~/environment/$REPO_NAME/deployment && ./create-workshop.sh"
         
     elif [ "$STACK_OPERATION" == "delete" ]; then
