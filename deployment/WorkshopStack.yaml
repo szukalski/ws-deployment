@@ -152,7 +152,8 @@ Resources:
                   "mkdir workshop && cd workshop",
                   "git clone --depth 1 --branch $REPO_BRANCH_NAME $REPO_URL .",
                   "echo $EVENT_REQUEST_TYPE",
-                  "./deployment/manage-workshop-stack.sh $EVENT_REQUEST_TYPE"
+                  "cd deployment",
+                  "./manage-workshop-stack.sh $EVENT_REQUEST_TYPE"
                 ]
               },
               "post_build": {
