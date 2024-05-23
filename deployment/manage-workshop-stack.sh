@@ -5,7 +5,7 @@
 # Define workshop specific constants
 # Per WORKSHOP_NAME variables
 WORKSHOP_NAME="Wiggleworm"
-REPO_NAME=$(echo $REPO_URL||sed 's#.*/##'|sed 's/\.git//')
+REPO_NAME=$(echo $REPO_URL|sed 's#.*/##'|sed 's/\.git//')
 CDK_VERSION="2.142.1"
 
 # Static variables
