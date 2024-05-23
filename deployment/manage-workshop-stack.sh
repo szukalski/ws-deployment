@@ -144,15 +144,15 @@ manage_workshop_stack() {
         replace_instance_profile
         run_ssm_command "cd ~/environment ; git clone --branch $REPO_BRANCH_NAME $REPO_URL || echo 'Repo already exists.'"
         run_ssm_command "rm -vf ~/.aws/credentials"
-        run_ssm_command "cd ~/environment/$REPONAME/deployment/cloud9 && ./resize-cloud9-ebs-vol.sh"
-        run_ssm_command "cd ~/environment/$REPONAME/deployment && ./create-workshop.sh"
+        run_ssm_command "cd ~/environment/$REPO_NAME/deployment/cloud9 && ./resize-cloud9-ebs-vol.sh"
+        run_ssm_command "cd ~/environment/$REPO_NAME/deployment && ./create-workshop.sh"
         
     elif [ "$STACK_OPERATION" == "delete" ]; then
 
         if [[ "$C9_ID" != "None" ]]; then
             aws ec2 start-instances --instance-ids "$C9_ID"
             wait_for_instance_ssm "$C9_ID"
-            run_ssm_command "cd ~/environment/$REPONAME/deployment && ./delete-workshop.sh"
+            run_ssm_command "cd ~/environment/$REPO_NAME/deployment && ./delete-workshop.sh"
         else
             cd ..
             ./destroy-workshop.sh
