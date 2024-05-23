@@ -12,7 +12,7 @@ CDK_VERSION="2.142.1"
 C9_ATTR_ARN_PARAMETER_NAME="/"$WORKSHOP_NAME"/Cloud9/AttrArn"
 C9_INSTANCE_PROFILE_PARAMETER_NAME="/"$WORKSHOP_NAME"/Cloud9/InstanceProfileName"
 TARGET_USER="ec2-user"
-CDK_C9_STACK=$WORKSHOP_NAME"-Cloud9Stack"
+CDK_C9_STACK="WS-Cloud9Stack"
 
 # Define how to manage your workshop stack
 # The example below deploys a Cloud9 instance and uses it to bootstrap a workshop.
