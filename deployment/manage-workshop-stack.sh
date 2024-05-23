@@ -71,10 +71,6 @@ manage_workshop_stack() {
         echo "Starting cdk destroy..."
         cdk destroy --all --force
         echo "Done cdk destroy!"
-
-        echo "Deleting code build log group"
-        aws logs delete-log-group --log-group-name "/aws/codebuild/install-stack-codebuild"
-        echo "Deleted code build log group"
     else
         echo "Invalid stack operation!"
         exit 1
