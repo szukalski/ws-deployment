@@ -168,8 +168,8 @@ manage_workshop_stack() {
     fi
 }
 
-
 STACK_OPERATION="$1"
+echo "Managing workshop for " $STACK_OPERATION "event."
 
 for i in {1..3}; do
     echo "iteration number: $i"
