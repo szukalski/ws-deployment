@@ -247,4 +247,4 @@ Resources:
           - TriggerCodeBuild
           - Arn
     UpdateReplacePolicy: Delete
-    DeletionPolicy: Retain
+    DeletionPolicy: Delete
