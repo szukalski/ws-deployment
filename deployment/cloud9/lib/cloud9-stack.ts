@@ -23,6 +23,7 @@ export class Cloud9Stack extends cdk.Stack {
       props?.vpc ??
       Vpc.fromLookup(this, "VPC", { isDefault: true, })
       ;
+    
     // Create the Cloud9 environment
     this.c9 = new CfnEnvironmentEC2(this, 'Cloud9Stack', {
       imageId: props?.imageId ?? 'amazonlinux-2023-x86_64',
