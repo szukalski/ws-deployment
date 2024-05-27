@@ -116,13 +116,16 @@ get_c9_id() {
         --output text)
 }
 
-create_workshop() {
-    # Deploy cloud9 instance using CDK
+bootstrap_cdk() {
     echo "Deploying CDK..."
     npm install --force --global aws-cdk@$CDK_VERSION
     cd cloud9
     npm install
     cdk bootstrap
+}
+
+create_workshop() {
+    bootstrap_cdk
     echo "Starting Cloud9 cdk deploy..."
     cdk deploy $CDK_C9_STACK \
         --require-approval never \
@@ -151,6 +154,7 @@ create_workshop() {
 }
 
 delete_workshop() {
+    bootstrap_cdk
     get_c9_id
     if [[ "$C9_ID" != "None" ]]; then
         aws ec2 start-instances --instance-ids "$C9_ID"
