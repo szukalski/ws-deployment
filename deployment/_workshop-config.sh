@@ -152,20 +152,16 @@ create_workshop() {
 delete_workshop() {
     get_c9_id
     if [[ "$C9_ID" != "None" ]]; then
-            aws ec2 start-instances --instance-ids "$C9_ID"
-            wait_for_instance_ssm "$C9_ID"
-            run_ssm_command "cd ~/environment/$REPO_NAME/deployment && ./delete-workshop.sh"
-        else
-            cd ..
-            ./delete-workshop.sh
-            cd cloud9
-        fi
-
-        echo "Starting cdk destroy..."
-        cdk destroy --all --force
-        echo "Done cdk destroy!"
+        aws ec2 start-instances --instance-ids "$C9_ID"
+        wait_for_instance_ssm "$C9_ID"
+        run_ssm_command "cd ~/environment/$REPO_NAME/deployment && ./delete-workshop.sh"
     else
-        echo "Invalid stack operation!"
-        exit 1
+        cd ..
+        ./delete-workshop.sh
+        cd cloud9
     fi
+
+    echo "Starting cdk destroy..."
+    cdk destroy --all --force
+    echo "Done cdk destroy!"
 }
