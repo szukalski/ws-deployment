@@ -125,7 +125,8 @@ create_workshop() {
     cdk bootstrap
     echo "Starting Cloud9 cdk deploy..."
     cdk deploy $CDK_C9_STACK \
-        --require-approval never
+        --require-approval never \
+        --context "workshop=$WORKSHOP_NAME"
     echo "Done Cloud9 cdk deploy!"
 
     get_c9_id
