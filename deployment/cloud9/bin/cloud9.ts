@@ -10,7 +10,7 @@ const env = { account, region };
 const participantAssumedRoleArn = process.env.PARTICIPANT_ASSUMED_ROLE_ARN;
 const workshop = app.node.tryGetContext('workshop') || 'workshop';
 
-new Cloud9Stack(app, 'WS-Cloud9Stack', {
+new Cloud9Stack(app, workshop+'-C9Stack', {
   workshop: workshop,
   ownerArn: participantAssumedRoleArn,
   env: env,
